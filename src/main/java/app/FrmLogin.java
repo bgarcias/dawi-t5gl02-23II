@@ -86,13 +86,25 @@ public class FrmLogin extends JFrame {
 
 	
 	private JTextField txtClave;
-	
+		
+	String leerUsuario() {
+		if (!txtUsuario.getText().matches("[A-Za-z0-9]+[@][a-z0-9]+[.][a-z]{2,3}")) {
+			JOptionPane.showMessageDialog(null, "Usuario debe ser correo");
+			return null;
+		}
+		 return txtUsuario.getText();
+	}
 	
 	void validacion() {
 		
 		//LEER CAMPOS
-			String usuario 	= txtUsuario.getText();
+			String usuario 	= leerUsuario();
 			String clave = txtClave.getText();
+			
+			if (usuario == null || clave == null ) {
+				return;
+			}
+			
 		
 		//VALIDAR EN BD
 		EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("jpa_sesion02");
